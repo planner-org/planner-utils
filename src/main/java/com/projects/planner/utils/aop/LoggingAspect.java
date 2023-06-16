@@ -16,7 +16,16 @@ import java.util.Calendar;
 public class LoggingAspect {
 
     @Around("execution(* com.projects.planner.todo.controller..*(..)))")
-    public Object profileControllerMethods(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object profileTodoControllerMethods(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        return logging(proceedingJoinPoint);
+    }
+
+    @Around("execution(* com.projects.planner.users.controller..*(..)))")
+    public Object profileUsersControllerMethods(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        return logging(proceedingJoinPoint);
+    }
+
+    private Object logging(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
 
         String className = methodSignature.getDeclaringType().getSimpleName();
@@ -33,5 +42,4 @@ public class LoggingAspect {
 
         return result;
     }
-
 }
